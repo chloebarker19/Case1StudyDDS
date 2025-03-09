@@ -1,4 +1,4 @@
-# Case1StudyDDS: Employee Attrition Analysis
+# CaseStudy1DDS: Frito Lay Employee Attrition Analysis
 **Setting:** We have been hired by Frito Lay to identify factors related to employee attrition.
 ## Question of Interest
 What are the key factors contributing to employee attrition (turnover), and how effectively can we predict attrition using these factors?
