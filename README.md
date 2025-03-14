@@ -33,6 +33,6 @@ To predict attrition, we used **Naïve Bayes** and **k-Nearest Neighbors (kNN)**
 - Employees working Over Time were more likely to leave, highlighting a possible issue with working too many hours.
 
 ## Helpful Links
-- You can view a pdf link to my presenation [here]([https://drive.google.com/file/d/1Tnj-58S58GQHO5TJ7wKfBoArqnQEkKkX/view?usp=share_link](https://drive.google.com/file/d/19JHBzKC90YNcApNPGlOngN9XbnYClkGX/view?usp=sharing))
+- You can view a pdf link to my presenation [here](https://drive.google.com/file/d/19JHBzKC90YNcApNPGlOngN9XbnYClkGX/view?usp=sharing)
 - You can view the Youtube presentation [here](https://youtu.be/fbEB-BOKmEQ?si=DlVtoCAYSkMfcsN8)
-- You can view the knitted document or additional results [here]([http://rpubs.com/chloedbarker/1282353](http://rpubs.com/chloebarker19/1284581))
+- You can view the knitted document or additional results [here](http://rpubs.com/chloebarker19/1284581)
