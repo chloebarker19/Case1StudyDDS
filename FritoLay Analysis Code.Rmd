@@ -1,5 +1,5 @@
 ---
-title: "Case Study 1: Frito Lay Analysis"
+title: "Case Study 1: Frito-Lay Analysis"
 output: html_document
 author: "Chloe Barker"
 ---
@@ -8,7 +8,6 @@ author: "Chloe Barker"
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
-library(plotly)
 library(ggthemes)
 library(extrafont)
 library(caret)
@@ -19,23 +18,22 @@ font_add_google("Oswald", "Oswald")
 showtext_auto()
 ```
 
-## Frito Lay Attrition Links
+## Frito-Lay Attrition Project Links
 ```{r}
 # PDF Presentation Link 
-browseURL("https://drive.google.com/file/d/1Tnj-58S58GQHO5TJ7wKfBoArqnQEkKkX/view?usp=sharing")
+browseURL("https://drive.google.com/file/d/19JHBzKC90YNcApNPGlOngN9XbnYClkGX/view?usp=sharing")
 
 # Presentation Link 
 browseURL("https://youtu.be/fbEB-BOKmEQ")
 ```
 
-## Frito Lay Attrition Analysis
+## Frito-Lay Attrition Analysis
 ```{r}
 # Download Data
 frito_data = read.csv("CaseStudy1-data.csv", header = TRUE)
-
 # Make Attrition a factor: "Yes" = "Left", "No" = "Stayed"
 frito_data$Attrition = factor(frito_data$Attrition, labels = c( "Stayed", "Left"))
-# Make "Left" group the positive reference group
+# Make the "Left" group the positive reference group
 frito_data$Attrition = relevel(frito_data$Attrition, ref = "Left")
 # Check the counts of the employees who stayed vs left 
 table(frito_data$Attrition)
@@ -116,7 +114,7 @@ frito_data %>%
   theme(plot.title = element_text(size = 15), legend.position = "none") +
   xlab("Job Role") +
   ylab("Proportion") + 
-  scale_fill_manual(values = c("Left" = "red", "Stayed" = "yellow")) +
+  scale_fill_manual(values = c("Left" = "red", "Stayed" = "yellow")) + 
   coord_flip()
 
 ## Over Time
@@ -213,6 +211,7 @@ qt(.975,184.91)
 ## Further Visuals of Data
 ```{r}
 # Age vs. Monthly Income by Over Time
+# More red points in the "Yes" Over Time category among lower monthly incomes on average, with many red points (Attrition group that Left) seen among employees around the ages of 20 to 30. 
 ggplot(frito_data, aes(x = Age, y = MonthlyIncome, color = Attrition)) +
   geom_point(alpha = 0.5) +
   facet_wrap(~ OverTime) +
@@ -222,7 +221,9 @@ ggplot(frito_data, aes(x = Age, y = MonthlyIncome, color = Attrition)) +
        x = "Age",
        y = "Monthly Income")
 
+
 # Age vs. Monthly Income for Sales Representatives
+# Job Role with a large proportion of employees leaving, shown for Age verses Monthly Income.
 frito_data %>%
   filter(JobRole == "Sales Representative") %>%
   ggplot(aes(x = Age, y = MonthlyIncome, color = Attrition)) +
@@ -232,6 +233,7 @@ frito_data %>%
   labs(title = "Age vs. Monthly Income for Sales Representatives", x= "Age",y = "Monthly Income")
 
 # Age vs. Monthly Income by Job Role
+# There is a higher frequency of red points for certain job roles, as seen in the "Sales Represenatives" and "Research Scientist" categories. 
 ggplot(frito_data, aes(x = Age, y = MonthlyIncome, color = Attrition)) +
   geom_point(alpha = 0.5) +
   facet_wrap(~ JobRole) +
@@ -240,6 +242,7 @@ ggplot(frito_data, aes(x = Age, y = MonthlyIncome, color = Attrition)) +
   labs(title = "Age vs. Monthly Income by Job Role", x = "Age",y = "Monthly Income")
 
 # Years In Current Role vs. Monthly Income for Job Level 1
+# There is a high frequency of red points seen in the first Job Level mainly among first year through thirs year employees. 
 frito_data %>%
   filter(JobLevel == "1") %>%
   ggplot(aes(x = YearsInCurrentRole, y = MonthlyIncome, color = Attrition)) +
@@ -250,6 +253,7 @@ frito_data %>%
   labs(title = "Years In Current Role vs. Monthly Income for Job Level 1", x= "Years In Current Role",y = "Monthly Income")
 
 # Years In Current Role vs. Monthly Income for Job Levels
+# There is a high frequency of red points (employees leaving) seen in the first three Job Levels. The first job level sees a higher frequency of employees leaving in their first three years, whereas job level 3 sees more employees leaving around the seven to ten year mark. 
 ggplot(frito_data, aes(x = YearsInCurrentRole, y = MonthlyIncome, color = Attrition)) +
   geom_jitter(alpha = 0.6, width = 0.2, height = 0) +
   facet_wrap(~ JobLevel) +
@@ -282,7 +286,7 @@ fritonb$JobInvolvement = as.factor(fritonb$JobInvolvement)
 
 ```{r}
 # Naive Bayes Testing Model
-# Here we pick a subset of three features (i.e JobLevel, OverTime, YearsInCurrentRole) to see how well they predict Attrition. We chose threshold = 0.20 after initial experimentation to balance sensitivity and specificity as sensitivity is important here as we try to correctly predict who will leave the company. 
+# Picked a subset of three features (i.e JobLevel, OverTime, YearsInCurrentRole) to see how well they predict Attrition. We chose threshold = 0.20 after my initial runs to balance sensitivity and specificity as sensitivity slightly more important here as we try to correctly predict who will leave the company.
 
 frito_nb = fritonb %>% select(JobLevel, OverTime, YearsInCurrentRole, Attrition)
 threshold = .20
